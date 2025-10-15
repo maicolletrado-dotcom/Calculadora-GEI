@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Huella de Carbono</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Huella de Carbono 🇨🇴</h1>
+
+        <h2>🏡 Vivienda</h2>
+        <label>Consumo eléctrico mensual (kWh):</label>
+        <input type="number" id="kwhMensual" placeholder="Ej: 150">
+        <label>¿Cuántas personas viven en tu hogar?</label>
+        <input type="number" id="personasHogar" value="1">
+
+        <h2>🚗 Transporte</h2>
+        <label>Kilómetros semanales en coche (gasolina):</label>
+        <input type="number" id="kmCoche" placeholder="Ej: 50">
+        
+        <h2>🍔 Alimentación</h2>
+        <label>Frecuencia de consumo de carne de res:</label>
+        <select id="dieta">
+            <option value="alta">Alta (4+ veces/semana)</option>
+            <option value="media" selected>Media (1-3 veces/semana)</option>
+            <option value="baja">Baja o ninguna</option>
+        </select>
+
+        <button onclick="calcularHuella()">Calcular mi Huella</button>
+
+        <div id="resultados" class="hidden">
+            <h2>Tus Resultados</h2>
+            <p>Tu huella de carbono anual es de <strong id="huellaTotal"></strong> toneladas de CO₂e.</p>
+            <canvas id="graficoHuella" width="400" height="200"></canvas>
+            <div id="comparativa"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

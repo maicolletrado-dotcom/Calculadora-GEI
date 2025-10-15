@@ -1,0 +1,69 @@
+// script.js
+
+// Factores de emisión para Colombia (en kg CO₂e)
+const FACTORES = {
+    electricidad: 0.193, // kg por kWh
+    gasolina: 0.17,      // kg por km
+    dieta: {
+        alta: 3300,      // kg por año
+        media: 2500,
+        baja: 1700
+    }
+};
+
+// Datos para la comparativa (en toneladas por año)
+const PROMEDIOS = {
+    colombia: 1.9,
+    mundo: 4.7,
+    meta2050: 2.0
+};
+
+// Referencia al gráfico para poder destruirlo y crearlo de nuevo
+let graficoHuella = null;
+
+function calcularHuella() {
+    // 1. LEER DATOS DEL USUARIO
+    const kwh = parseFloat(document.getElementById('kwhMensual').value) || 0;
+    const personas = parseInt(document.getElementById('personasHogar').value) || 1;
+    const kmCoche = parseFloat(document.getElementById('kmCoche').value) || 0;
+    const tipoDieta = document.getElementById('dieta').value;
+
+    // 2. CALCULAR EMISIONES ANUALES
+    const emisionVivienda = (kwh / personas) * FACTORES.electricidad * 12;
+    const emisionTransporte = kmCoche * FACTORES.gasolina * 52;
+    const emisionDieta = FACTORES.dieta[tipoDieta];
+
+    const totalAnualKg = emisionVivienda + emisionTransporte + emisionDieta;
+    const totalAnualTon = totalAnualKg / 1000;
+
+    // 3. MOSTRAR RESULTADOS
+    document.getElementById('resultados').classList.remove('hidden');
+    document.getElementById('huellaTotal').innerText = totalAnualTon.toFixed(2);
+    
+    // 4. GENERAR GRÁFICO
+    const ctx = document.getElementById('graficoHuella').getContext('2d');
+    
+    // Si ya existe un gráfico, lo destruimos antes de crear uno nuevo
+    if (graficoHuella) {
+        graficoHuella.destroy();
+    }
+
+    graficoHuella = new Chart(ctx, {
+        type: 'bar', // Gráfico de barras
+        data: {
+            labels: ['Tu Huella', 'Promedio Colombia', 'Promedio Mundial', 'Meta 2050'],
+            datasets: [{
+                label: 'Toneladas de CO₂e por año',
+                data: [totalAnualTon, PROMEDIOS.colombia, PROMEDIOS.mundo, PROMEDIOS.meta2050],
+                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0']
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
