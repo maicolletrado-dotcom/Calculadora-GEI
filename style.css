@@ -1,69 +1,200 @@
-// script.js
+/* style.css */
+body {
+    font-family: 'Open Sans', sans-serif; /* Fuente más legible */
+    background-color: #eef2f6; /* Fondo más suave */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea al inicio si la página es larga */
+    min-height: 100vh; /* Ocupa toda la altura */
+    padding: 30px 15px; /* Más padding */
+    box-sizing: border-box; /* Incluir padding en el tamaño total */
+}
 
-// Factores de emisión para Colombia (en kg CO₂e)
-const FACTORES = {
-    electricidad: 0.193, // kg por kWh
-    gasolina: 0.17,      // kg por km
-    dieta: {
-        alta: 3300,      // kg por año
-        media: 2500,
-        baja: 1700
+.container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08); /* Sombra más pronunciada */
+    max-width: 700px; /* Ancho máximo un poco más grande */
+    width: 100%;
+    margin: auto; /* Centrar el contenedor */
+}
+
+h1, h2 {
+    font-family: 'Montserrat', sans-serif; /* Fuentes más impactantes para títulos */
+    color: #2c3e50; /* Color oscuro para títulos */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 1.6em;
+    font-weight: 600;
+    margin-top: 25px;
+    border-bottom: 2px solid #e0e0e0; /* Línea separadora */
+    padding-bottom: 10px;
+    color: #34495e; /* Un tono de gris más suave */
+}
+
+.intro-text {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #555;
+    font-size: 1.1em;
+}
+
+.flag {
+    font-size: 0.9em;
+    vertical-align: middle;
+}
+
+.category-card {
+    background-color: #f8f8fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block; /* Cada label en su propia línea */
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+    font-size: 0.95em;
+}
+
+input[type="number"], select {
+    width: calc(100% - 20px); /* Ajustar para padding */
+    padding: 12px;
+    margin: 6px 0 18px;
+    border-radius: 6px;
+    border: 1px solid #dcdcdc;
+    font-size: 1em;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06); /* Sombra interna para inputs */
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus, select:focus {
+    border-color: #4CAF50; /* Resaltar al enfocar */
+    outline: none;
+}
+
+button {
+    background-color: #4CAF50; /* Verde vibrante */
+    color: white;
+    font-size: 1.1em;
+    font-weight: 700;
+    padding: 15px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Botón de ancho completo */
+}
+
+button:hover {
+    background-color: #45a049; /* Tono más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Pequeño efecto de elevación */
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.hidden {
+    display: none;
+}
+
+#resultados {
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 25px;
+}
+
+#resultados p {
+    font-size: 1.1em;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+#huellaTotal, #huellaTotalComparativa {
+    color: #d35400; /* Color para resaltar el número */
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.chart-container {
+    width: 90%; /* Ancho de los gráficos */
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 30px 0;
+}
+
+.tips-section {
+    background-color: #e8f5e9; /* Fondo suave para consejos */
+    border-left: 5px solid #66bb6a;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 8px;
+}
+
+.tips-section h3 {
+    color: #388e3c;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.tips-section ul {
+    list-style: none; /* Quitar viñetas predeterminadas */
+    padding-left: 0;
+}
+
+.tips-section li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 25px;
+    color: #4CAF50;
+}
+
+.tips-section li::before {
+    content: '🌱'; /* Icono de hoja para cada consejo */
+    position: absolute;
+    left: 0;
+    color: #66bb6a;
+    font-size: 1.1em;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
     }
-};
-
-// Datos para la comparativa (en toneladas por año)
-const PROMEDIOS = {
-    colombia: 1.9,
-    mundo: 4.7,
-    meta2050: 2.0
-};
-
-// Referencia al gráfico para poder destruirlo y crearlo de nuevo
-let graficoHuella = null;
-
-function calcularHuella() {
-    // 1. LEER DATOS DEL USUARIO
-    const kwh = parseFloat(document.getElementById('kwhMensual').value) || 0;
-    const personas = parseInt(document.getElementById('personasHogar').value) || 1;
-    const kmCoche = parseFloat(document.getElementById('kmCoche').value) || 0;
-    const tipoDieta = document.getElementById('dieta').value;
-
-    // 2. CALCULAR EMISIONES ANUALES
-    const emisionVivienda = (kwh / personas) * FACTORES.electricidad * 12;
-    const emisionTransporte = kmCoche * FACTORES.gasolina * 52;
-    const emisionDieta = FACTORES.dieta[tipoDieta];
-
-    const totalAnualKg = emisionVivienda + emisionTransporte + emisionDieta;
-    const totalAnualTon = totalAnualKg / 1000;
-
-    // 3. MOSTRAR RESULTADOS
-    document.getElementById('resultados').classList.remove('hidden');
-    document.getElementById('huellaTotal').innerText = totalAnualTon.toFixed(2);
-    
-    // 4. GENERAR GRÁFICO
-    const ctx = document.getElementById('graficoHuella').getContext('2d');
-    
-    // Si ya existe un gráfico, lo destruimos antes de crear uno nuevo
-    if (graficoHuella) {
-        graficoHuella.destroy();
+    h1 {
+        font-size: 1.8em;
     }
-
-    graficoHuella = new Chart(ctx, {
-        type: 'bar', // Gráfico de barras
-        data: {
-            labels: ['Tu Huella', 'Promedio Colombia', 'Promedio Mundial', 'Meta 2050'],
-            datasets: [{
-                label: 'Toneladas de CO₂e por año',
-                data: [totalAnualTon, PROMEDIOS.colombia, PROMEDIOS.mundo, PROMEDIOS.meta2050],
-                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0']
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    h2 {
+        font-size: 1.4em;
+    }
+    input, select, button {
+        font-size: 0.95em;
+        padding: 10px;
+    }
 }
