@@ -293,3 +293,6 @@ hr {
 .analogy-box strong {
     color: #2980b9; /* Azul más oscuro para resaltar */
 }
+.example-list li + li + li::before {
+    content: '🍔'; /* Icono de comida para el tercer item */
+}
