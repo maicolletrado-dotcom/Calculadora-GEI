@@ -52,7 +52,32 @@
                 <option value="4+">4+ veces</option>
             </select>
         </section>
+<section id="explicacion" class="explanation-section">
+                <hr>
+                <h2>¿Cómo se estima tu huella de carbono?</h2>
+                <p>Es una gran pregunta. La calculadora no "mide" tus emisiones en tiempo real (como un sensor), sino que las <strong>estima</strong> usando una metodología científica estándar.</p>
+                <p>Todo se basa en una fórmula simple:</p>
+                
+                <div class="formula-box">
+                    <code>(Tus Datos de Actividad) x (Factor de Emisión) = Emisiones</code>
+                </div>
 
+                <h3>1. Tus Datos de Actividad</h3>
+                <p>Es la información que tú proporcionaste: cuántos kilómetros conduces, cuánta electricidad consumes o la frecuencia con la que comes ciertos alimentos.</p>
+
+                <h3>2. El Factor de Emisión</h3>
+                <p>Este es el dato científico clave. Un "factor de emisión" es un promedio que nos dice cuántos kilogramos de CO₂ se liberan por cada unidad de una actividad (ej. por cada kWh de luz o por cada km en coche).</p>
+                <p>Estos factores se obtienen de bases de datos globales (como las del IPCC) y estudios locales llamados <strong>"Análisis de Ciclo de Vida" (ACV)</strong>, que investigan el impacto de un producto "de la cuna a la tumba".</p>
+                
+                <ul class="example-list">
+                    <li><strong>Para la Electricidad:</strong> Usamos el factor del "mix energético" de Colombia. Es bajo (aprox. 0.193 kg/kWh) gracias a la alta participación de energía hidroeléctrica, que emite mucho menos que el carbón o el gas.</li>
+                    <li><strong>Para el Transporte:</strong> Se basa en la química. Quemar 1 litro de gasolina siempre libera una cantidad fija de CO₂ (aprox. 2.3 kg). El factor lo traduce a kg por kilómetro.</li>
+                </ul>
+
+                <div class="analogy-box">
+                    <strong>En resumen:</strong> Piensa en esta calculadora como una <strong>"radiografía" de tu impacto.</strong> No es una foto 100% detallada, pero te muestra con gran precisión dónde están tus mayores impactos (Vivienda, Transporte o Comida) y te da el poder de saber por dónde empezar a actuar.
+                </div>
+            </section>
         <button onclick="calcularHuella()">Calcular mi Huella</button>
 
         <div id="resultados" class="hidden">
