@@ -279,6 +279,10 @@ hr {
     content: '🚗'; /* Icono de coche para el segundo item */
 }
 
+.example-list li + li + li::before {
+    content: '🍔'; /* Icono de comida para el tercer item */
+}
+
 /* Caja para la analogía de la radiografía */
 .analogy-box {
     background-color: #eaf2f8; /* Fondo azul claro */
