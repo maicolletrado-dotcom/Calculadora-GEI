@@ -3,754 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduBoost IA - Plataforma Educativa</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Estilo personalizado para el scrollbar */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #a7f3d0;
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background-color: #f1f1f1;
-        }
-        .gradient-text {
-            background: linear-gradient(to right, #15803d, #166534);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        /* Estilo para asegurar el texto en negrita dentro del output */
-        #resultado strong {
-            font-weight: 700;
-        }
-        #resultado ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            padding-left: 0.5rem;
-        }
-        /* Clase para mantener los saltos de línea y el formato enviado por la API */
-        .whitespace-pre-wrap {
-            white-space: pre-wrap;
-        }
-    </style>
+    <title>Calculadora de Huella de Carbono Personal 🇨🇴</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-50 min-h-screen font-sans">
+<body>
+    <div class="container">
+        <h1>Calculadora de Huella de Carbono Personal <span class="flag">🇨🇴</span></h1>
+        <p class="intro-text">Descubre tu impacto ambiental y compáralo con los promedios.</p>
 
-    
-    <div class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
+        <section class="category-card">
+            <h2>🏡 Vivienda</h2>
+            <label for="kwhMensual">Consumo eléctrico mensual (kWh):</label>
+            <input type="number" id="kwhMensual" placeholder="Ej: 150 kWh" min="0">
+            <label for="personasHogar">¿Cuántas personas viven en tu hogar?</label>
+            <input type="number" id="personasHogar" value="1" min="1">
+        </section>
+
+        <section class="category-card">
+            <h2>🚗 Transporte</h2>
+            <label for="kmCoche">Kilómetros semanales en coche/moto (gasolina/diésel):</label>
+            <input type="number" id="kmCoche" placeholder="Ej: 50 km" min="0">
+            <label for="kmTransportePublico">Kilómetros semanales en transporte público (bus/metro):</label>
+            <input type="number" id="kmTransportePublico" placeholder="Ej: 30 km" min="0">
+        </section>
         
-        
-        <header class="bg-white shadow-lg rounded-xl mb-6 overflow-hidden">
-            <div class="bg-green-50 p-6 text-center border-b border-green-100">
-                <h1 class="text-4xl sm:text-5xl font-extrabold gradient-text mb-2 tracking-tight">EduBoost IA</h1>
-                <p class="text-gray-600 text-lg sm:text-xl font-medium">Personalización, seguimiento y análisis en un solo lugar.</p>
+        <section class="category-card">
+            <h2>🍔 Alimentación</h2>
+            <label for="freqCarneRoja">Frecuencia semanal de consumo de carne de res:</label>
+            <select id="freqCarneRoja">
+                <option value="0">Nunca</option>
+                <option value="1-2">1-2 veces</option>
+                <option value="3-4">3-4 veces</option>
+                <option value="4+">4+ veces</option>
+            </select>
+            <label for="freqAvesCerdo">Frecuencia semanal de consumo de pollo/cerdo:</label>
+            <select id="freqAvesCerdo">
+                <option value="0">Nunca</option>
+                <option value="1-2">1-2 veces</option>
+                <option value="3-4">3-4 veces</option>
+                <option value="4+">4+ veces</option>
+            </select>
+            <label for="freqLacteos">Frecuencia semanal de consumo de lácteos:</label>
+            <select id="freqLacteos">
+                <option value="0">Nunca</option>
+                <option value="1-2">1-2 veces</option>
+                <option value="3-4">3-4 veces</option>
+                <option value="4+">4+ veces</option>
+            </select>
+        </section>
+<section id="explicacion" class="explanation-section">
+                <hr>
+                <h2>¿Cómo se estima tu huella de carbono?</h2>
+                <p>Es una gran pregunta. La calculadora no "mide" tus emisiones en tiempo real (como un sensor), sino que las <strong>estima</strong> usando una metodología científica estándar.</p>
+                <p>Todo se basa en una fórmula simple:</p>
+                
+                <div class="formula-box">
+                    <code>(Tus Datos de Actividad) x (Factor de Emisión) = Emisiones</code>
+                </div>
+
+                <h3>1. Tus Datos de Actividad</h3>
+                <p>Es la información que tú proporcionaste: cuántos kilómetros conduces, cuánta electricidad consumes o la frecuencia con la que comes ciertos alimentos.</p>
+
+                <h3>2. El Factor de Emisión</h3>
+                <p>Este es el dato científico clave. Un "factor de emisión" es un promedio que nos dice cuántos kilogramos de CO₂ se liberan por cada unidad de una actividad (ej. por cada kWh de luz o por cada km en coche).</p>
+                <p>Estos factores se obtienen de bases de datos globales (como las del IPCC) y estudios locales llamados <strong>"Análisis de Ciclo de Vida" (ACV)</strong>, que investigan el impacto de un producto "de la cuna a la tumba".</p>
+                
+                <ul class="example-list">
+                    <li><strong>Para la Electricidad:</strong> Usamos el factor del "mix energético" de Colombia. Es bajo (aprox. 0.193 kg/kWh) gracias a la alta participación de energía hidroeléctrica, que emite mucho menos que el carbón o el gas.</li>
+                    <li><strong>Para el Transporte:</strong> Se basa en la química. Quemar 1 litro de gasolina siempre libera una cantidad fija de CO₂ (aprox. 2.3 kg). El factor lo traduce a kg por kilómetro.</li>
+<li><strong>Para la Alimentación:</strong> Este es el factor más complejo. Usamos <strong>estimaciones anuales</strong> basadas en dietas promedio. ¿Por qué la carne de res tiene un factor tan alto? Porque las vacas son rumiantes y producen <strong>metano ($CH_4$)</strong>, un gas ~28 veces más potente que el $CO_2$. Nuestro cálculo suma el impacto de cada tipo de alimento según la frecuencia que elegiste.</li>
+                </ul>
+
+                <div class="analogy-box">
+                    <strong>En resumen:</strong> Piensa en esta calculadora como una <strong>"radiografía" de tu impacto.</strong> No es una foto 100% detallada, pero te muestra con gran precisión dónde están tus mayores impactos (Vivienda, Transporte o Comida) y te da el poder de saber por dónde empezar a actuar.
+                </div>
+            </section>
+        <button onclick="calcularHuella()">Calcular mi Huella</button>
+
+        <div id="resultados" class="hidden">
+            <hr>
+            <h2>🎉 Tus Resultados Anuales</h2>
+            <p>Tu huella de carbono total es de <strong id="huellaTotal"></strong> toneladas de CO₂e.</p>
+            
+            <div class="chart-container">
+                <canvas id="graficoDesglose"></canvas>
             </div>
             
-            
-            <nav class="flex flex-wrap justify-center bg-white">
-                <button data-tab="presentacion" class="tab-button flex-1 py-4 px-2 sm:px-6 text-sm sm:text-base font-semibold text-white bg-green-600 transition duration-150 ease-in-out border-b-4 border-green-800 focus:outline-none">Presentación</button>
-                <button data-tab="tutor" class="tab-button flex-1 py-4 px-2 sm:px-6 text-sm sm:text-base font-semibold text-gray-600 hover:text-green-700 hover:bg-green-50 transition duration-150 ease-in-out">Tutor Neox</button>
-                <button data-tab="talleres" class="tab-button flex-1 py-4 px-2 sm:px-6 text-sm sm:text-base font-semibold text-gray-600 hover:text-green-700 hover:bg-green-50 transition duration-150 ease-in-out">Talleres y Recursos</button>
-                <button data-tab="seguimiento" class="tab-button flex-1 py-4 px-2 sm:px-6 text-sm sm:text-base font-semibold text-gray-600 hover:text-green-700 hover:bg-green-50 transition duration-150 ease-in-out">Seguimiento</button>
-            </nav>
-        </header>
+            <div class="chart-container">
+                <p>Tu huella (<strong id="huellaTotalComparativa"></strong> tCO₂e) en comparación:</p>
+                <canvas id="graficoComparativa"></canvas>
+            </div>
 
-        
-        <main class="bg-white shadow-xl rounded-xl p-6 min-h-[600px]">
-
-            
-            <section id="presentacion" data-content="presentacion" class="tab-content">
-                <div class="text-gray-800">
-                    <div class="border-b-2 border-green-100 pb-4 mb-6">
-                        <h2 class="text-2xl font-bold text-gray-800">PROYECTO INTELIGENCIA ARTIFICIAL GENERATIVA</h2>
-                        <h3 class="text-xl text-green-700 font-medium">UNIVERSIDAD DE LA SALLE</h3>
-                    </div>
-                    
-                    <p class="mb-8 text-lg leading-relaxed text-gray-600">
-                        Bienvenido a <span class="font-bold text-green-700">EduBoost IA</span>. Esta es una plataforma web de IA generativa en educación, diseñada para reforzar a los estudiantes de manera personalizada, generar talleres y hacer un seguimiento detallado.
-                    </p>
-
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-                        <span class="bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-2 text-sm">?</span>
-                        Instrucciones de Uso
-                    </h3>
-
-                    
-                    <div class="mb-4 p-5 bg-green-50 rounded-xl shadow-sm border border-green-200 hover:shadow-md transition">
-                        <p class="font-bold text-green-800 text-lg mb-2">1. Tutor Virtual "Neox" (Pestaña 2)</p>
-                        <p class="text-gray-700">Para obtener un plan de refuerzo efectivo, debes saludar a Neox e indicarle:</p>
-                        <ul class="list-disc list-inside ml-4 mt-2 text-gray-700 space-y-1">
-                            <li><strong>Tu Curso o Grado:</strong> (Ej: 10°, Universidad, 5° Primaria).</li>
-                            <li><strong>El Área:</strong> (Ej: Matemáticas).</li>
-                            <li><strong>El Tema:</strong> (Ej: Derivadas).</li>
-                            <li><strong>El Tiempo:</strong> (Ej: 45 minutos).</li>
-                        </ul>
-                        <div class="mt-3 bg-white p-3 rounded border border-green-100 italic text-sm text-gray-600">
-                            "Hola Neox, soy Gabriel, estoy en <strong>3er semestre de Ingeniería</strong>. Quiero reforzar <strong>Física</strong> en el tema de <strong>Leyes de Newton</strong> por <strong>2 horas</strong>."
-                        </div>
-                    </div>
-
-                    
-                    <div class="mb-4 p-5 bg-blue-50 rounded-xl shadow-sm border border-blue-200 hover:shadow-md transition">
-                        <p class="font-bold text-blue-800 text-lg mb-2">2. Banco de Recursos y Retroalimentación (Pestaña 3)</p>
-                        <p class="text-gray-700">Encuentra talleres y enlaces de Drive organizados por materias. Además, puedes <strong>subir tu taller resuelto</strong> (o pegar el texto) para que Neox lo califique y te dé consejos de mejora.</p>
-                    </div>
-
-                    
-                    <div class="mb-8 p-5 bg-indigo-50 rounded-xl shadow-sm border border-indigo-200 hover:shadow-md transition">
-                        <p class="font-bold text-indigo-800 text-lg mb-2">3. Sistema de Seguimiento (Pestaña 4)</p>
-                        <p class="text-gray-700">Registra tu progreso después de cada sesión. Indica qué reforzaste, cuánto tiempo dedicaste y qué aprendiste. ¡Toma captura de pantalla de tu resumen!</p>
-                    </div>
-
-
-                    <div class="bg-gray-100 p-6 rounded-lg shadow-inner">
-                        <h3 class="text-lg font-bold text-gray-700 mb-4">Equipo de Desarrollo</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="flex items-center space-x-2">
-                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                                <span class="text-gray-700 font-medium">Michael Letrado</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                                <span class="text-gray-700 font-medium">Veronica Galeano</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                                <span class="text-gray-700 font-medium">Mildre Arias</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                                <span class="text-gray-700 font-medium">Jineth Agudelo</span>
-                            </div>
-                        </div>
-                        <p class="mt-4 text-xs text-gray-500 font-bold text-right">© 2025 EduBoost IA</p>
-                    </div>
-                </div>
+            <section class="tips-section">
+                <h3>💡 ¿Cómo reducir tu huella?</h3>
+                <ul>
+                    <li>Prioriza electrodomésticos eficientes y apaga luces.</li>
+                    <li>Usa el transporte público, bicicleta o camina más a menudo.</li>
+                    <li>Reduce el consumo de carne roja; opta por pollo, pescado o dietas vegetarianas.</li>
+                </ul>
             </section>
-
-            
-            <section id="tutor" data-content="tutor" class="tab-content hidden">
-                <div class="flex items-center mb-6">
-                    <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-4 shadow-lg">N</div>
-                    <div>
-                        <h2 class="text-3xl font-extrabold text-green-700">Hola, soy Neox</h2>
-                        <p class="text-gray-500">Tu Tutor Virtual Inteligente</p>
-                    </div>
-                </div>
-
-                <div class="bg-green-50 border-l-4 border-green-500 p-4 text-green-800 rounded-lg mb-6 shadow-sm">
-                    <p class="font-bold">💡 Tip:</p>
-                    <p class="text-sm">Recuerda decirme tu <strong>Curso/Grado</strong>, <strong>Área</strong>, <strong>Tema</strong> y <strong>Tiempo</strong> para crear el mejor plan para ti.</p>
-                </div>
-
-                <textarea id="entradaUsuario" placeholder='Escribe aquí... Ej: "Hola Neox, estoy en 3er semestre de Ingeniería. Quiero reforzar Física en el tema de Leyes de Newton por 2 horas."' rows="6" class="border border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-lg w-full p-4 mb-4 resize-none shadow-sm"></textarea>
-                
-                <button id="btnGenerar" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 w-full mb-6 shadow-md flex justify-center items-center">
-                    <span>Consultar a Neox</span>
-                </button>
-                
-                <div class="mt-8">
-                    <h3 class="text-xl font-semibold text-gray-700 mb-3 flex items-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                        Respuesta de Neox:
-                    </h3>
-                    
-                    <!-- CAMBIO DE ESTILO AQUÍ: Aplicando un diseño de burbuja limpio -->
-                    <div id="resultado" class="bg-blue-50 border border-blue-300 p-6 rounded-xl min-h-[200px] text-gray-800 custom-scrollbar overflow-y-auto shadow-lg leading-relaxed">
-                        <span class="text-gray-500 italic">Aquí aparecerá mi respuesta...</span>
-                    </div>
-                </div>
-            </section>
-
-            
-            <section id="talleres" data-content="talleres" class="tab-content hidden">
-                <h2 class="text-3xl font-extrabold text-gray-800 mb-6">Banco de Recursos y Retroalimentación</h2>
-
-                
-                <div class="mb-10">
-                    <h3 class="text-xl font-bold text-green-700 mb-4 border-b border-gray-200 pb-2">📂 Material de Estudio Recomendado</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Accede a las carpetas de Drive con los talleres oficiales para cada materia:</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        
-                        <a href="#" class="block p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-green-400 transition group">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-gray-700 group-hover:text-green-600">📐 Matemáticas</span>
-                                <svg class="w-5 h-5 text-gray-400 group-hover:text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-2">Talleres de Cálculo, Álgebra y Trig.</p>
-                        </a>
-                        
-                        <a href="#" class="block p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-blue-400 transition group">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-gray-700 group-hover:text-blue-600">⚛️ Física</span>
-                                <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-2">Mecánica, Ondas y Electricidad.</p>
-                        </a>
-                        
-                        <a href="#" class="block p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-purple-400 transition group">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-gray-700 group-hover:text-purple-600">🧪 Química</span>
-                                <svg class="w-5 h-5 text-gray-400 group-hover:text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-2">Orgánica e Inorgánica.</p>
-                        </a>
-                        
-                        <a href="#" class="block p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-red-400 transition group">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-gray-700 group-hover:text-red-600">🧬 Biología</span>
-                            <svg class="w-5 h-5 text-gray-400 group-hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-2">Genética y Ecosistemas.</p>
-                        </a>
-                         
-                        <a href="#" class="block p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-yellow-400 transition group">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-gray-700 group-hover:text-yellow-600">📚 Lenguaje</span>
-                                <svg class="w-5 h-5 text-gray-400 group-hover:text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-2">Lectura Crítica y Gramática.</p>
-                        </a>
-                    </div>
-                </div>
-
-                
-                <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                    <h3 class="text-xl font-bold text-green-700 mb-2">📝 Sube tu Taller para Retroalimentación</h3>
-                    <p class="text-gray-600 text-sm mb-4">Sube tu archivo (PDF/Imagen) o pega el texto de tu respuesta para que <strong>Neox</strong> lo califique.</p>
-
-                    <div class="space-y-4">
-                        
-                        <div class="flex items-center justify-center w-full">
-                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white hover:bg-gray-50">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                    </svg>
-                                    <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Haz clic para subir</span> o arrastra el archivo</p>
-                                    <p class="text-xs text-gray-500">PDF, PNG, JPG (Máx 5MB)</p>
-                                </div>
-                                <input id="dropzone-file" type="file" class="hidden" />
-                            </label>
-                        </div>
-                        
-                        <p class="text-center text-sm font-bold text-gray-400">- O -</p>
-
-                        
-                        <textarea id="textoTaller" placeholder="Si no puedes subir el archivo, pega aquí el texto de tu respuesta o examen..." rows="4" class="border border-gray-300 rounded-lg w-full p-3 text-sm resize-none"></textarea>
-
-                        <button id="btnRetroalimentacion" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg w-full transition shadow-md">
-                            Enviar a Neox para Revisión
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            
-            <section id="seguimiento" data-content="seguimiento" class="tab-content hidden">
-                <h2 class="text-3xl font-extrabold text-green-700 mb-6">Sistema de Seguimiento Personalizado</h2>
-                
-                <div id="loadingSeguimiento" class="text-center text-gray-500">Cargando datos de usuario...</div>
-
-                <div id="seguimientoData" class="hidden">
-                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 text-indigo-700 rounded-lg mb-6">
-                        <p class="font-bold">ID de la Sesión (para seguimiento interno):</p>
-                        <p id="currentUserId" class="text-sm break-all"></p>
-                    </div>
-
-                    <h3 class="text-xl font-semibold text-gray-700 mb-3">Registrar Sesión de Refuerzo</h3>
-                    
-                    
-                    <div class="bg-white p-4 border border-gray-200 rounded-lg mb-4 space-y-3">
-                        <input type="text" id="nombreInput" placeholder="Nombre del Estudiante" class="border border-gray-300 rounded-lg w-full p-2 text-sm">
-                        <input type="text" id="areaInput" placeholder="1. ¿Qué área reforzaste? (Ej: Física)" class="border border-gray-300 rounded-lg w-full p-2 text-sm">
-                        <input type="text" id="tiempoInput" placeholder="2. ¿Cuánto tiempo dedicaste? (Ej: 2 horas)" class="border border-gray-300 rounded-lg w-full p-2 text-sm">
-                        <textarea id="aprendizajeInput" placeholder="3. ¿Qué aprendiste o cuál fue tu logro principal?" rows="3" class="border border-gray-300 rounded-lg w-full p-2 text-sm resize-none"></textarea>
-                        
-                        <button id="addNotaBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto">
-                            Guardar Registro de Sesión
-                        </button>
-                    </div>
-
-                    
-                    <div id="registroResumen" class="hidden p-4 mb-6 rounded-lg">
-                        <p class="text-lg font-bold mb-2" id="resumenTitle"></p>
-                        <div id="resumenContent" class="text-sm text-gray-700 space-y-1">
-                            
-                        </div>
-                        <p class="mt-3 text-red-600 font-extrabold text-base border-t border-red-200 pt-2">
-                            <span class="animate-pulse">📸</span> TOMA UN PANTALLAZO DE ESTE CUADRO y envíalo a tu docente.
-                        </p>
-                    </div>
-
-                    <h3 class="text-xl font-semibold text-gray-700 mb-3 mt-8">Historial de Interacciones:</h3>
-
-                    
-                    <div id="listaSeguimiento" class="space-y-3">
-                        
-                        <p class="text-gray-500">Aún no hay registros de refuerzo.</p>
-                    </div>
-                </div>
-            </section>
-
-        </main>
+        </div>
     </div>
 
-    
-    <script type="module">
-        // Importaciones de Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, addDoc, onSnapshot, collection, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        
-        // Variables Globales de Firebase (Proporcionadas por el entorno Canvas)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        
-        let firebaseConfig = {};
-        try {
-            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-                firebaseConfig = JSON.parse(__firebase_config);
-            }
-        } catch (e) {
-            console.error("Error al analizar __firebase_config:", e);
-        }
-
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        let db = null;
-        let auth = null;
-        let userId = null;
-        let isAuthReady = false;
-        let isFirebaseActive = false;
-
-        /****************************************************************
-         * LÓGICA DE INICIALIZACIÓN Y FIREBASE
-         ****************************************************************/
-        
-        const initializeFirebase = async () => {
-            const loadingDiv = document.getElementById('loadingSeguimiento');
-            const dataDiv = document.getElementById('seguimientoData');
-            
-            const requiredKeys = ['apiKey', 'projectId', 'appId'];
-            const hasRequiredConfig = requiredKeys.every(key => firebaseConfig[key]);
-            
-            if (Object.keys(firebaseConfig).length === 0 || !hasRequiredConfig) {
-                loadingDiv.innerHTML = '<span class="text-yellow-600 font-bold bg-yellow-100 p-2 rounded">Modo Local (Sin Base de Datos)</span>';
-                dataDiv.classList.remove('hidden'); 
-                isAuthReady = true; 
-                document.getElementById('currentUserId').textContent = 'Sesión Local';
-                return;
-            }
-
-            isFirebaseActive = true;
-            loadingDiv.textContent = 'Cargando datos de usuario...';
-
-            try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
-
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        userId = user.uid;
-                        isAuthReady = true;
-                        document.getElementById('currentUserId').textContent = userId;
-                        setupSeguimientoListener(); 
-                    } else {
-                        isAuthReady = true;
-                        console.error("Autenticación fallida o anónima no establecida.");
-                    }
-                    loadingDiv.classList.add('hidden');
-                    dataDiv.classList.remove('hidden');
-                });
-
-            } catch (e) {
-                console.error("Error al inicializar Firebase o autenticar:", e);
-                loadingDiv.innerHTML = '<span class="text-red-600 font-bold">Error de carga de Firebase.</span>';
-            }
-        };
-
-        const setupSeguimientoListener = () => {
-            if (!isFirebaseActive || !isAuthReady || !db || !userId) return;
-
-            // Firestore no permite orderBy por defecto sin índices especiales. Ordenamos en memoria.
-            const seguimientoPath = `artifacts/${appId}/users/${userId}/seguimiento`;
-            const q = collection(db, seguimientoPath);
-
-            onSnapshot(q, (snapshot) => {
-                const listaSeguimiento = document.getElementById('listaSeguimiento');
-                listaSeguimiento.innerHTML = '';
-                
-                if (snapshot.empty) {
-                    listaSeguimiento.innerHTML = '<p class="text-gray-500">Aún no hay registros de refuerzo.</p>';
-                    return;
-                }
-                
-                // Obtener datos y ordenar por timestamp (descendente) en el cliente
-                const registros = snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data(),
-                    // Convertir el objeto Timestamp a un valor numérico para la ordenación
-                    timestampMs: doc.data().timestamp ? doc.data().timestamp.seconds * 1000 + doc.data().timestamp.nanoseconds / 1000000 : 0
-                }));
-                
-                registros.sort((a, b) => b.timestampMs - a.timestampMs); 
-
-                registros.forEach(data => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'bg-gray-100 p-3 rounded-md border border-gray-200 shadow-md hover:bg-gray-200 transition duration-150';
-                    
-                    const timestamp = data.timestampMs 
-                        ? new Date(data.timestampMs).toLocaleString() 
-                        : 'Fecha desconocida';
-
-                    itemDiv.innerHTML = `
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="font-extrabold text-lg text-green-700">${data.area || 'N/A'}</span>
-                            <span class="text-sm font-semibold text-indigo-600 bg-indigo-200 px-2 py-0.5 rounded-full">${data.tiempo || 'N/A'}</span>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-2">Estudiante: <span class="font-bold">${data.nombre || 'Anónimo'}</span> | Fecha: ${timestamp}</p>
-                        <p class="font-medium text-gray-800 border-t border-gray-300 pt-2">Aprendizaje: ${data.aprendizaje || 'N/A'}</p>
-                    `;
-                    listaSeguimiento.appendChild(itemDiv);
-                });
-            }, (error) => {
-                console.error("Error al escuchar el seguimiento:", error);
-                document.getElementById('listaSeguimiento').innerHTML = '<p class="text-red-500">Error al cargar el historial.</p>';
-            });
-        };
-        
-        const showSummary = (nombre, area, tiempo, aprendizaje, saved) => {
-            const registroResumenDiv = document.getElementById('registroResumen');
-            const resumenContentDiv = document.getElementById('resumenContent');
-            const resumenTitle = document.getElementById('resumenTitle');
-            
-            registroResumenDiv.classList.remove('hidden', 'bg-green-100', 'border-green-300', 'bg-yellow-100', 'border-yellow-300');
-
-            if (saved) {
-                registroResumenDiv.classList.add('bg-green-100', 'border-green-300');
-                resumenTitle.textContent = '✅ ¡Registro Guardado con Éxito!';
-                resumenTitle.classList.remove('text-yellow-800');
-                resumenTitle.classList.add('text-green-800');
-            } else {
-                registroResumenDiv.classList.add('bg-yellow-100', 'border-yellow-300');
-                resumenTitle.textContent = '⚠️ Registro Listo (Modo Local)';
-                resumenTitle.classList.remove('text-green-800');
-                resumenTitle.classList.add('text-yellow-800');
-            }
-            
-            resumenContentDiv.innerHTML = `
-                <p><strong>Estudiante:</strong> ${nombre}</p>
-                <p><strong>Área Reforzada:</strong> ${area}</p>
-                <p><strong>Tiempo Dedicado:</strong> ${tiempo}</p>
-                <p class="mt-2 p-2 bg-white rounded border border-gray-200"><strong>Aprendizaje Clave:</strong><br>${aprendizaje}</p>
-            `;
-            
-            // Hacer scroll hacia el resumen
-            registroResumenDiv.scrollIntoView({ behavior: 'smooth' });
-        };
-
-
-        const handleAddNota = async () => {
-            const nombreInput = document.getElementById('nombreInput');
-            const areaInput = document.getElementById('areaInput');
-            const tiempoInput = document.getElementById('tiempoInput');
-            const aprendizajeInput = document.getElementById('aprendizajeInput');
-
-            const nombre = nombreInput.value.trim();
-            const area = areaInput.value.trim();
-            const tiempo = tiempoInput.value.trim();
-            const aprendizaje = aprendizajeInput.value.trim();
-
-            const inputs = [nombreInput, areaInput, tiempoInput, aprendizajeInput];
-            let allValid = true;
-
-            inputs.forEach(input => {
-                if (!input.value.trim()) {
-                    input.classList.add('border-red-500', 'ring-red-500');
-                    allValid = false;
-                } else {
-                    input.classList.remove('border-red-500', 'ring-red-500');
-                }
-            });
-
-            if (!allValid) {
-                document.getElementById('registroResumen').classList.add('hidden');
-                return;
-            }
-            
-            if (!isFirebaseActive) {
-                showSummary(nombre, area, tiempo, aprendizaje, false); 
-                nombreInput.value = '';
-                areaInput.value = '';
-                tiempoInput.value = '';
-                aprendizajeInput.value = '';
-                return;
-            }
-
-            try {
-                const seguimientoPath = `artifacts/${appId}/users/${userId}/seguimiento`;
-                await addDoc(collection(db, seguimientoPath), {
-                    nombre: nombre,
-                    area: area,
-                    tiempo: tiempo,
-                    aprendizaje: aprendizaje,
-                    timestamp: serverTimestamp(),
-                });
-                
-                nombreInput.value = '';
-                areaInput.value = '';
-                tiempoInput.value = '';
-                aprendizajeInput.value = '';
-                
-                showSummary(nombre, area, tiempo, aprendizaje, true); 
-
-            } catch (error) {
-                console.error("Error al añadir nota:", error);
-                const registroResumenDiv = document.getElementById('registroResumen');
-                registroResumenDiv.classList.remove('hidden');
-                registroResumenDiv.classList.add('bg-red-100', 'border-red-300');
-                registroResumenDiv.innerHTML = `<p class="text-red-600 font-bold">❌ Error: No se pudo guardar el registro.</p>`;
-            }
-        };
-        
-        /****************************************************************
-         * LÓGICA DEL TUTOR VIRTUAL (GEMINI / NEOX)
-         ****************************************************************/
-        
-        // 🚨🚨🚨 CONFIGURACIÓN CRÍTICA PARA USO LOCAL 🚨🚨🚨
-        // SI ESTÁS EJECUTANDO ESTE ARCHIVO DESDE TU PC (NO DENTRO DE CANVAS):
-        // DEBES OBTENER E INSERTAR TU CLAVE DE API PERSONAL DE GOOGLE AQUÍ.
-        // Si la dejas vacía, la API generará un error 403 (Forbidden) fuera del entorno Canvas.
-        const geminiApiKey = "AIzaSyAF4soEBO3iqFXyr6KJYOzZZ1GX5G1-mLE"; // <--- ¡¡¡ PEGA TU CLAVE PERSONAL AQUÍ !!!
-        // ---------------------------------------------------------------------
-        
-        const geminiModel = 'gemini-2.5-flash-preview-09-2025';
-        const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${geminiApiKey}`;
-
-        // Instrucción de sistema para guiar a Neox
-        const systemInstruction = "Tu nombre es Neox, un tutor virtual experto y amigable de la plataforma EduBoost IA de la Universidad de La Salle. Tu objetivo es ayudar a estudiantes. Si el usuario te indica su CURSO/GRADO, ÁREA, TEMA y TIEMPO, debes generar un plan de refuerzo personalizado adaptado a ese nivel académico. Si suben un texto de un taller, califícalo y dales retroalimentación constructiva. Sé motivador y claro.";
-
-        /**
-         * Realiza una llamada a la API con reintentos utilizando Exponential Backoff.
-         */
-        const fetchWithRetry = async (url, options) => {
-            const maxRetries = 3;
-            let currentRetry = 0;
-
-            while (currentRetry < maxRetries) {
-                try {
-                    const response = await fetch(url, options);
-                    
-                    if (response.ok) {
-                        return response;
-                    }
-                    
-                    if (response.status === 429 || response.status >= 500) {
-                        const delay = Math.pow(2, currentRetry) * 1000;
-                        currentRetry++;
-                        console.warn(`Intento ${currentRetry} fallido con status ${response.status}. Reintentando en ${delay}ms...`);
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                        continue;
-                    }
-                    
-                    // Para otros errores de cliente (4xx), no reintentar, lanzar error
-                    throw new Error(`Error HTTP: ${response.status}`);
-                    
-                } catch (error) {
-                    if (currentRetry < maxRetries && error.message.includes("Failed to fetch")) {
-                        const delay = Math.pow(2, currentRetry) * 1000;
-                        currentRetry++;
-                        console.warn(`Intento ${currentRetry} fallido por error de red. Reintentando en ${delay}ms...`);
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                    } else {
-                        throw error; 
-                    }
-                }
-            }
-            throw new Error("Máximo número de reintentos alcanzado. La API no respondió.");
-        };
-
-
-        async function generarContenido(promptOverride = null) {
-            let entrada = "";
-            let outputDiv = document.getElementById('resultado');
-
-            if (promptOverride) {
-                entrada = promptOverride;
-                document.querySelector('button[data-tab="tutor"]').click();
-            } else {
-                entrada = document.getElementById('entradaUsuario').value;
-            }
-
-            if (!entrada.trim()) {
-                outputDiv.innerHTML = '<span class="text-gray-500 italic">Por favor, escribe tu solicitud para Neox.</span>';
-                return;
-            }
-            
-            // VERIFICACIÓN CRÍTICA DE LA CLAVE API
-            if (geminiApiKey.trim() === "" || geminiApiKey.trim().length < 30) {
-                 outputDiv.innerHTML = `
-                    <h4 class="text-red-600 font-bold border-b pb-2 mb-2">❌ Error de Configuración: Clave API Inválida</h4>
-                    <p class="text-sm mb-3">Si estás ejecutando el archivo localmente (con Python server):</p>
-                    <ol class="list-decimal list-inside ml-4 text-sm space-y-1">
-                        <li>Asegúrate de haber pegado la <strong>clave API completa y correcta de Gemini</strong>.</li>
-                        <li>Verifica que la clave esté en la línea 402.</li>
-                    </ol>
-                    <p class="text-xs mt-3 text-gray-500">Este problema no ocurre en el entorno de Canvas porque la clave se inyecta automáticamente.</p>
-                 `;
-                 return;
-            }
-
-
-            outputDiv.innerHTML = '<div class="flex items-center space-x-2 text-indigo-600"><svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Neox está pensando...</span></div>';
-
-            const payload = {
-                contents: [{ parts: [{ text: entrada }] }],
-                systemInstruction: { parts: [{ text: systemInstruction }] },
-            };
-            
-            try {
-                const response = await fetchWithRetry(geminiApiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                
-                const result = await response.json();
-                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                if (text) {
-                    // MODIFICACIÓN CLAVE AQUÍ: Usamos innerHTML con un wrapper para preservar formato
-                    // Aseguramos que los saltos de línea se muestren correctamente
-                    const formattedText = text;
-                    outputDiv.innerHTML = `<div class="whitespace-pre-wrap">${formattedText}</div>`;
-                } else if (result.error) {
-                    let errorMsg = result.error.message;
-                    
-                    if (result.error.code === 403) {
-                         errorMsg = `
-                            <h4 class="text-red-600 font-bold border-b pb-2 mb-2">❌ ERROR CRÍTICO 403 (Prohibido)</h4>
-                            <p class="text-sm font-bold">Esto significa que tu clave API fue rechazada. Debes verificar lo siguiente en tu consola de Google AI Studio / Cloud:</p>
-                            <ol class="list-decimal list-inside ml-4 text-sm space-y-2 mt-2">
-                                <li><strong>Verificación de Servicio:</strong> Asegúrate de que la clave que estás usando sea para el servicio **Generative Language API** (Gemini) y que este servicio esté **habilitado** en tu proyecto.</li>
-                                <li><strong>Restricciones de Referer:</strong> Si tu clave tiene restricciones de navegador, debes añadir a la lista de "Referers" permitidos las siguientes direcciones, que son las que usa el servidor de Python:
-                                    <ul class="list-disc list-inside ml-4 mt-1 font-mono text-xs text-gray-700 p-2 bg-gray-200 rounded">
-                                        <li><code>http://localhost:*</code></li>
-                                        <li><code>http://127.0.0.1:*</code></li>
-                                    </ul>
-                                </li>
-                                <li><strong>Doble Chequeo:</strong> Asegúrate de que la clave que pegaste en la línea 402 no tenga espacios en blanco ni caracteres extraños.</li>
-                            </ol>
-                            <p class="text-xs mt-3 text-gray-500">Error original: ${errorMsg}</p>
-                         `;
-                    } else {
-                        errorMsg = `<h4 class="text-red-600 font-bold border-b pb-2 mb-2">❌ Error de Neox (API):</h4><p class="text-sm">${errorMsg}</p>`;
-                    }
-                    
-                    outputDiv.innerHTML = errorMsg;
-                    console.error("Error completo de la API:", result.error);
-                } else {
-                    outputDiv.innerHTML = `<h4 class="text-red-500 font-bold">❌ Error de Neox:</h4><p class="text-sm">No se pudo obtener la respuesta del modelo. Intenta de nuevo. (Revisa la consola para más detalles)</p>`;
-                    console.error("Respuesta inesperada de la API:", result);
-                }
-
-            } catch (error) {
-                console.error("Error al llamar a la API de Gemini (final):", error);
-                
-                let errorMessage = `Ocurrió un error. Posiblemente hay un problema de red o la clave API no es válida. Detalles: ${error.message}`;
-                
-                outputDiv.innerHTML = `<h4 class="text-red-500 font-bold">❌ Error de Neox:</h4><p class="text-sm">${errorMessage}</p>`;
-            }
-        }
-
-        // Lógica para enviar retroalimentación desde la Pestaña 3
-        const handleRetroalimentacion = () => {
-            const textoTaller = document.getElementById('textoTaller').value;
-            const fileInput = document.getElementById('dropzone-file');
-            const outputDiv = document.getElementById('resultado');
-            
-            if (textoTaller.trim()) {
-                const prompt = `Hola Neox, por favor revisa el siguiente taller o examen que realicé y dame retroalimentación, correcciones y nota sugerida (de 1 a 5): \n\n ${textoTaller}`;
-                generarContenido(prompt);
-            } else if (fileInput.files.length > 0) {
-                // Usamos un mensaje en la interfaz en lugar de alert()
-                outputDiv.innerHTML = `<h4 class="text-yellow-600 font-bold">⚠️ Atención:</h4><p class="text-sm">La lectura directa de archivos está en desarrollo. Por favor, copia y pega el texto de tu taller en el cuadro de texto y usa el botón 'Enviar a Neox para Revisión'.</p>`;
-                document.querySelector('button[data-tab="tutor"]').click();
-            } else {
-                // Usamos un modal o un mensaje dentro del DOM en lugar de alert()
-                outputDiv.innerHTML = `<h4 class="text-yellow-600 font-bold">⚠️ Atención:</h4><p class="text-sm">Por favor, pega el texto de tu taller en el área de texto para que Neox pueda revisarlo.</p>`;
-                // Cambiamos a la pestaña del tutor para ver el mensaje
-                document.querySelector('button[data-tab="tutor"]').click();
-            }
-        };
-        
-        /****************************************************************
-         * LÓGICA DE INTERFAZ (TABS Y EVENTOS)
-         ****************************************************************/
-        
-        const setupTabs = () => {
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabContents = document.querySelectorAll('.tab-content');
-
-            const activateTab = (activeTabId) => {
-                tabContents.forEach(content => {
-                    content.classList.add('hidden');
-                });
-                document.getElementById(activeTabId).classList.remove('hidden');
-
-                tabButtons.forEach(button => {
-                    if (button.dataset.tab === activeTabId) {
-                        button.classList.add('bg-green-600', 'text-white', 'border-b-4', 'border-green-800');
-                        button.classList.remove('text-gray-600', 'hover:text-green-700', 'hover:bg-green-50');
-                    } else {
-                        button.classList.remove('bg-green-600', 'text-white', 'border-b-4', 'border-green-800');
-                        button.classList.add('text-gray-600', 'hover:text-green-700', 'hover:bg-green-50');
-                    }
-                });
-            };
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    activateTab(button.dataset.tab);
-                });
-            });
-
-            activateTab('presentacion');
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setupTabs();
-            
-            const btnGenerar = document.getElementById('btnGenerar');
-            if (btnGenerar) {
-                btnGenerar.addEventListener('click', () => generarContenido());
-            }
-
-            const addNotaBtn = document.getElementById('addNotaBtn');
-            if (addNotaBtn) {
-                addNotaBtn.addEventListener('click', handleAddNota);
-            }
-
-            // Botón de retroalimentación en Pestaña 3
-            const btnRetro = document.getElementById('btnRetroalimentacion');
-            if (btnRetro) {
-                btnRetro.addEventListener('click', handleRetroalimentacion);
-            }
-            
-            initializeFirebase();
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
